@@ -1,0 +1,47 @@
+from pyautogui import *
+import pyautogui
+import time
+import keyboard
+import random
+import win32api, win32con
+
+time.sleep(3)
+
+def rclick():
+    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN,0,0)
+    time.sleep(0.03)
+    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP,0,0)
+    time.sleep(1)
+    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN,0,0)
+    time.sleep(0.03)
+    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP,0,0)
+    
+#Color of center: RGB = ( 72, 112, 139)
+# centre frame
+#TL X: 1646 Y:  783
+#TR X: 2137 Y:  841
+#BR X: 2108 Y: 1204
+#BL X: 1594 Y: 1125
+# width = 540
+# height = 415
+
+
+#Range 
+while keyboard.is_pressed('q') == False:
+
+    pic = pyautogui.screenshot(region=(1646,783,540,415))
+
+    width, height = pic.size
+
+    for x in range(0,width,15):
+        for y in range(0,height,15):
+
+            r,g,b = pic.getpixel((x,y))
+
+            if (r in range (17,24)): #change to correct colour later
+                if (g in range (40,60)):
+                    if (b in range (57,95)):
+                        print("Bobber detetced!")
+                        rclick()
+                        time.sleep(3)
+                        break
